@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SeekDream - 寻梦科技</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "微软雅黑", Arial, sans-serif;
+        }
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #fffbf5 0%, #fff5ef 30%, #ffebe0 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(245, 166, 35, 0.08);
+            z-index: 0;
+        }
+        body::before {
+            width: 800px;
+            height: 800px;
+            top: -400px;
+            right: -400px;
+        }
+        body::after {
+            width: 600px;
+            height: 600px;
+            bottom: -300px;
+            left: -300px;
+        }
+        .main-container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px 20px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .year-label {
+            font-size: 18px;
+            color: #C8102E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+        .year-label i {
+            color: #F5A623;
+        }
+        .seekdream {
+            font-size: 80px;
+            font-weight: 800;
+            color: #222;
+            letter-spacing: 5px; 
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        .seekdream span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .seekdream:hover {
+            transform: scale(1.03);
+            color: #C8102E;
+            text-shadow: 0 3px 6px rgba(200, 16, 46, 0.1);
+        }
+        .bless-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .bless-text span {
+            color: #C8102E;
+            font-weight: 600;
+        }
+        .footer {
+            font-size: 14px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+            z-index: 1;
+            margin-top: 0px;
+        }
+        .footer i {
+            color: #F5A623;
+        }
+
+        @media (max-width: 768px) {
+            .seekdream {
+                font-size: 60px;
+                letter-spacing: 4px; 
+            }
+            .year-label {
+                font-size: 17px;
+            }
+            .main-container {
+                padding: 30px 15px;
+                border-radius: 16px;
+            }
+            body::before {
+                width: 600px;
+                height: 600px;
+                top: -300px;
+                right: -300px;
+            }
+            body::after {
+                width: 400px;
+                height: 400px;
+                bottom: -200px;
+                left: -200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .seekdream {
+                font-size: 45px;
+                letter-spacing: 3px; 
+            }
+            .year-label {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            .bless-text {
+                font-size: 15px;
+            }
+            .main-container {
+                padding: 25px 10px;
+                border-radius: 14px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .seekdream {
+                font-size: 38px;
+                letter-spacing: 2px; 
+            }
+            body {
+                padding: 15px;
+            }
+            .main-container {
+                padding: 20px 8px;
+                border-radius: 12px;
+            }
+            body::before {
+                width: 400px;
+                height: 400px;
+                top: -200px;
+                right: -200px;
+            }
+            body::after {
+                width: 300px;
+                height: 300px;
+                bottom: -150px;
+                left: -150px;
+            }
+            .footer {
+                font-size: 13px;
+                margin-top: 40px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="year-label">
+            <i class="fas fa-horse-head"></i>
+            2026 农历丙午马年
+        </div>
+        <h1 class="seekdream">
+            <span>S</span><span>e</span><span>e</span><span>k</span><span>D</span><span>r</span><span>e</span><span>a</span><span>m</span>
+        </h1>
+        <p class="bless-text">策马寻梦 · <span>福气常伴</span></p>
+    </div>
+    <div class="footer">
+        <i class="fas fa-fu"></i> 邮箱 : 6181686@gmail.com
+    </div>
+
+    <script>
+        const charSpans = document.querySelectorAll('.seekdream span');
+        charSpans.forEach((span, index) => {
+            span.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
