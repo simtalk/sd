@@ -24,6 +24,7 @@
             user-select: none;
             position: relative;
             overflow: hidden;
+            padding-bottom: 40px;
         }
         body::before, body::after {
             content: '';
@@ -54,6 +55,8 @@
             border-radius: 20px;
             position: relative;
             z-index: 1;
+            margin-top: auto;
+            margin-bottom: auto;
         }
         .year-label {
             font-size: 18px;
@@ -107,11 +110,18 @@
             font-size: 14px;
             color: #888;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 12px;
             position: relative;
             z-index: 1;
-            margin-top: 0px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .footer > div {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .footer i {
             color: #F5A623;
@@ -141,6 +151,10 @@
                 bottom: -200px;
                 left: -200px;
             }
+            .footer {
+                transform: translateY(-200px);
+                margin-bottom: 0;
+            }
         }
 
         @media (max-width: 600px) {
@@ -168,6 +182,7 @@
             }
             body {
                 padding: 15px;
+                padding-bottom: 30px;
             }
             .main-container {
                 padding: 20px 8px;
@@ -187,7 +202,7 @@
             }
             .footer {
                 font-size: 13px;
-                margin-top: 40px; 
+                gap: 10px;
             }
         }
     </style>
@@ -204,7 +219,8 @@
         <p class="bless-text">策马寻梦 · <span>福气常伴</span></p>
     </div>
     <div class="footer">
-        <i class="fas fa-fu"></i> 邮箱 : 6181686@gmail.com
+        <div><i class="fas fa-fu"></i> 邮箱 : 6181686@gmail.com</div>
+        <div><i class="fas fa-clock"></i> <span id="current-time"></span></div>
     </div>
 
     <script>
@@ -212,6 +228,22 @@
         charSpans.forEach((span, index) => {
             span.style.animationDelay = `${index * 0.1}s`;
         });
+
+        function updateCurrentTime() {
+            const now = new Date();
+            const formattedTime = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            }).replace(/\//g, '-');
+            document.getElementById('current-time').textContent = formattedTime;
+        }
+        updateCurrentTime();
+        setInterval(updateCurrentTime, 1000);
     </script>
 </body>
 </html>
