@@ -34,10 +34,10 @@
             z-index: 0;
         }
         body::before {
-            width: 800px;
-            height: 800px;
-            top: -400px;
-            right: -400px;
+            width: 500px;
+            height: 500px;
+            top: -250px;
+            right: -250px;
         }
         body::after {
             width: 600px;
@@ -56,6 +56,16 @@
             z-index: 2; 
             margin-top: auto;
             margin-bottom: auto;
+        }
+        .logo-box {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .logo-img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
         .year-label {
             font-size: 18px;
@@ -78,6 +88,10 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             white-space: nowrap;
             transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .seekdream span {
             display: inline-block;
@@ -92,7 +106,7 @@
             }
         }
         .seekdream:hover {
-            transform: scale(1.03);
+            transform: translateX(-50%) scale(1.03);
             color: #C8102E;
             text-shadow: 0 3px 6px rgba(200, 16, 46, 0.1);
         }
@@ -100,10 +114,30 @@
             font-size: 16px;
             color: #555;
             line-height: 1.5;
+            margin-bottom: 15px; /* 仅加间距，无其他修改 */
         }
         .bless-text span {
             color: #C8102E;
             font-weight: 600;
+        }
+        .visit-count {
+            font-size: 15px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .visit-count i {
+            color: #F5A623; 
+        }
+        .visit-count .count-num {
+            color: #C8102E;
+            font-weight: 600;
+            min-width: 40px;
+            display: inline-block;
+            text-align: center;
         }
         .footer {
             font-size: 14px;
@@ -130,6 +164,12 @@
             .seekdream {
                 font-size: 60px;
                 letter-spacing: 4px; 
+                display: block;
+                left: auto;
+                transform: none;
+            }
+            .seekdream:hover {
+                transform: scale(1.03);
             }
             .year-label {
                 font-size: 17px;
@@ -139,10 +179,10 @@
                 border-radius: 16px;
             }
             body::before {
-                width: 600px;
-                height: 600px;
-                top: -300px;
-                right: -300px;
+                width: 380px;
+                height: 380px;
+                top: -190px;
+                right: -190px;
             }
             body::after {
                 width: 400px;
@@ -151,8 +191,11 @@
                 left: -200px;
             }
             .footer {
-                transform: translateY(-200px);
+                transform: translateY(0);
                 margin-bottom: 0;
+            }
+            .logo-img {
+                max-width: 200px;
             }
         }
 
@@ -168,9 +211,13 @@
             .bless-text {
                 font-size: 15px;
             }
+            .visit-count { font-size: 14px; } 
             .main-container {
                 padding: 25px 10px;
                 border-radius: 14px;
+            }
+            .logo-img {
+                max-width: 200px;
             }
         }
 
@@ -187,11 +234,13 @@
                 padding: 20px 8px;
                 border-radius: 12px;
             }
+            .bless-text { font-size: 14px; }
+            .visit-count { font-size: 13px; } 
             body::before {
-                width: 400px;
-                height: 400px;
-                top: -200px;
-                right: -200px;
+                width: 280px;
+                height: 280px;
+                top: -140px;
+                right: -140px;
             }
             body::after {
                 width: 300px;
@@ -203,11 +252,17 @@
                 font-size: 13px;
                 gap: 10px;
             }
+            .logo-img {
+                max-width: 150px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
+        <div class="logo-box">
+            <img src="https://ame.sciv.cn/seekdream/logo.svg" alt="寻梦科技" class="logo-img">
+        </div>
         <div class="year-label">
             <i class="fas fa-horse-head"></i>
             2026 农历丙午马年
@@ -215,11 +270,15 @@
         <h1 class="seekdream">
             <span>S</span><span>e</span><span>e</span><span>k</span><span>D</span><span>r</span><span>e</span><span>a</span><span>m</span>
         </h1>
-        <p class="bless-text">策马寻梦 · <span>福气常伴</span></p>
+        <p class="bless-text">策马寻梦 · <span>繁荣昌盛</span></p>
+        <div class="visit-count">
+            <i class="fas fa-eye"></i>
+            页面累计访问 : <span class="count-num" id="visit-num">0</span> 次
+        </div>
     </div>
     <div class="footer">
         <div><i class="fas fa-fu"></i> 邮箱 : 6181686@gmail.com</div>
-        <div><i class="fas fa-clock"></i> <span id="current-time"></span></div>
+        <div><i class="fas fa-clock"></i> 当前时间 : <span id="current-time"></span></div>
     </div>
 
     <script>
@@ -227,6 +286,38 @@
         charSpans.forEach((span, index) => {
             span.style.animationDelay = `${index * 0.1}s`;
         });
+
+        function animateCount(targetNum, duration = 1000) {
+            const countEl = document.getElementById('visit-num');
+            let currentNum = 0; 
+            const step = targetNum / (duration / 16); 
+
+            const timer = setInterval(() => {
+                currentNum += step;
+                if (currentNum >= targetNum) {
+                    clearInterval(timer);
+                    countEl.textContent = targetNum;
+                } else {
+                    countEl.textContent = Math.floor(currentNum);
+                }
+            }, 16);
+        }
+
+        async function getGlobalVisitCount() {
+            const apiUrl = 'https://ame.sciv.cn/seekdream/visit_count_api.php'; 
+            try {
+                const res = await fetch(apiUrl, {
+                    method: 'GET',
+                    cache: 'no-cache' 
+                });
+                const data = await res.json();
+                if (data.code === 200 && !isNaN(data.count)) {
+                    animateCount(parseInt(data.count));
+                }
+            } catch (err) {
+                console.log('Tips：', err.message);
+            }
+        }
 
         function updateCurrentTime() {
             const now = new Date();
@@ -241,6 +332,8 @@
             }).replace(/\//g, '-');
             document.getElementById('current-time').textContent = formattedTime;
         }
+
+        getGlobalVisitCount();
         updateCurrentTime();
         setInterval(updateCurrentTime, 1000);
     </script>
