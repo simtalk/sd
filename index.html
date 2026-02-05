@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -53,7 +54,7 @@
             padding: 40px 20px;
             border-radius: 20px;
             position: relative;
-            z-index: 2; 
+            z-index: 2;
             margin-top: auto;
             margin-bottom: auto;
         }
@@ -83,7 +84,7 @@
             font-size: 80px;
             font-weight: 800;
             color: #222;
-            letter-spacing: 5px; 
+            letter-spacing: 5px;
             margin-bottom: 20px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             white-space: nowrap;
@@ -114,7 +115,7 @@
             font-size: 16px;
             color: #555;
             line-height: 1.5;
-            margin-bottom: 15px; /* 仅加间距，无其他修改 */
+            margin-bottom: 15px;
         }
         .bless-text span {
             color: #C8102E;
@@ -130,7 +131,7 @@
             margin-bottom: 10px;
         }
         .visit-count i {
-            color: #F5A623; 
+            color: #F5A623;
         }
         .visit-count .count-num {
             color: #C8102E;
@@ -147,9 +148,15 @@
             align-items: center;
             gap: 12px;
             position: relative;
-            z-index: 2; 
+            z-index: 2;
             margin-top: 0;
             margin-bottom: 10px;
+        }
+        .domain-inquire {
+            font-size: 12px;
+            color: #888;
+            opacity: 0.8;
+            white-space: nowrap;
         }
         .footer > div {
             display: flex;
@@ -159,11 +166,10 @@
         .footer i {
             color: #F5A623;
         }
-
         @media (max-width: 768px) {
             .seekdream {
                 font-size: 60px;
-                letter-spacing: 4px; 
+                letter-spacing: 4px;
                 display: block;
                 left: auto;
                 transform: none;
@@ -198,11 +204,10 @@
                 max-width: 200px;
             }
         }
-
         @media (max-width: 600px) {
             .seekdream {
                 font-size: 45px;
-                letter-spacing: 3px; 
+                letter-spacing: 3px;
             }
             .year-label {
                 font-size: 16px;
@@ -211,7 +216,7 @@
             .bless-text {
                 font-size: 15px;
             }
-            .visit-count { font-size: 14px; } 
+            .visit-count { font-size: 14px; }
             .main-container {
                 padding: 25px 10px;
                 border-radius: 14px;
@@ -220,11 +225,10 @@
                 max-width: 200px;
             }
         }
-
         @media (max-width: 375px) {
             .seekdream {
                 font-size: 38px;
-                letter-spacing: 2px; 
+                letter-spacing: 2px;
             }
             body {
                 padding: 15px;
@@ -235,7 +239,7 @@
                 border-radius: 12px;
             }
             .bless-text { font-size: 14px; }
-            .visit-count { font-size: 13px; } 
+            .visit-count { font-size: 13px; }
             body::before {
                 width: 280px;
                 height: 280px;
@@ -251,6 +255,10 @@
             .footer {
                 font-size: 13px;
                 gap: 10px;
+            }
+            .domain-inquire {
+                font-size: 11px;
+                margin-bottom: 3px;
             }
             .logo-img {
                 max-width: 150px;
@@ -277,6 +285,7 @@
         </div>
     </div>
     <div class="footer">
+        <div class="domain-inquire">如您对此域名感兴趣，可通过下方地址进行询价</div>
         <div><i class="fas fa-fu"></i> 邮箱 : 6181686@gmail.com</div>
         <div><i class="fas fa-clock"></i> 当前时间 : <span id="current-time"></span></div>
     </div>
@@ -289,8 +298,8 @@
 
         function animateCount(targetNum, duration = 1000) {
             const countEl = document.getElementById('visit-num');
-            let currentNum = 0; 
-            const step = targetNum / (duration / 16); 
+            let currentNum = 0;
+            const step = targetNum / (duration / 16);
 
             const timer = setInterval(() => {
                 currentNum += step;
@@ -304,11 +313,11 @@
         }
 
         async function getGlobalVisitCount() {
-            const apiUrl = 'https://ame.sciv.cn/seekdream/visit_count_api.php'; 
+            const apiUrl = 'https://ame.sciv.cn/seekdream/visit_count_api.php';
             try {
                 const res = await fetch(apiUrl, {
                     method: 'GET',
-                    cache: 'no-cache' 
+                    cache: 'no-cache'
                 });
                 const data = await res.json();
                 if (data.code === 200 && !isNaN(data.count)) {
